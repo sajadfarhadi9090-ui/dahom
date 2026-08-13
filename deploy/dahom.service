@@ -1,0 +1,31 @@
+# systemd unit — /etc/systemd/system/dahom.service
+# قبل از استفاده:
+#   1) پروژه را در /opt/dahom کپی کنید
+#   2) کاربر سرویس بسازید:  sudo useradd -r -s /usr/sbin/nologin dahom
+#   3) مالکیت بدهید:       sudo chown -R dahom:dahom /opt/dahom
+#   4) .env را بسازید و رمز/SECRET_KEY را پر کنید
+#   5) sudo systemctl daemon-reload && sudo systemctl enable --now dahom
+
+[Unit]
+Description=Class Dahom — Flask Educational Site (Gunicorn)
+After=network.target
+
+[Service]
+User=dahom
+Group=dahom
+WorkingDirectory=/opt/dahom
+
+# متغیرهای محیطی: از فایل .env در پوشهٔ پروژه
+EnvironmentFile=/opt/dahom/.env
+Environment=DATA_DIR=/opt/dahom
+Environment=PORT=5000
+
+# ورودی WSGI: app:app  (دیتابیس هنگام import خودکار ساخته می‌شود)
+ExecStart=/opt/dahom/venv/bin/gunicorn --workers 2 --threads 4 --timeout 120 \
+          --bind 127.0.0.1:5000 app:app
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

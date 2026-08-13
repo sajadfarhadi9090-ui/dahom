@@ -1,0 +1,14 @@
+# محیط مجازی و کش
+venv/
+__pycache__/
+*.pyc
+.env
+
+# داده‌های محلی (روی هاست با DATA_DIR روی دیسک پایدار می‌ماند)
+dahom.db
+uploads/
+data/
+
+# سیستم
+.DS_Store
+Thumbs.db

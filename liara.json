@@ -1,0 +1,18 @@
+{
+  "app": "class-dahom",
+  "port": 5000,
+  "platform": "python",
+  "build": {
+    "buildCommand": "pip install -r requirements.txt"
+  },
+  "run": {
+    "command": "gunicorn --workers 1 --threads 4 --timeout 120 -b 0.0.0.0:5000 app:app"
+  },
+  "env": {
+    "SECRET_KEY": "change-me",
+    "ADMIN_PASSWORD": "dahom123",
+    "ADMIN_PANEL_PATH": "panel",
+    "ZARINPAL_MERCHANT_ID": "",
+    "ZARINPAL_SANDBOX": "1"
+  }
+}
